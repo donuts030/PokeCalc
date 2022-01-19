@@ -10,6 +10,7 @@ A damage calculator for pokemon, specifically generation 1 and generation 2.
 - API: https://pokeapi.co/
 
 ## Wireframe
+![selectionPage](placeholder)
 
 
 ## Things to do:
