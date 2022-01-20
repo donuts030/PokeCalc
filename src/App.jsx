@@ -13,8 +13,8 @@ export default function App() {
   const [pokeData1, setpokeData1] = useState({});
   const [pokeData2, setpokeData2] = useState({});
 
-  const [pokeMoves1, setMoves1] = useState({});
-  const [pokeMoves2, setMoves2] = useState({});
+  // const [pokeMoves1, setMoves1] = useState({});
+  // const [pokeMoves2, setMoves2] = useState({});
 
   /* const pokeCache = caches.open("poke-cache"); */
   /*   pokeCache.then((cache) => {
@@ -50,7 +50,8 @@ export default function App() {
   }, [pokemon2]);
 
   console.log(pokeData1);
-  randomMoves(pokeData2);
+  const pokeMoves1 = randomMoves(pokeData1);
+  const pokeMoves2 = randomMoves(pokeData2);
 
   //calculate(pokeData1, pokeData2);
 
@@ -72,7 +73,7 @@ export default function App() {
             element={<PokeCalcInput setPoke1={setPoke1} setPoke2={setPoke2} />}
           />
         </Routes>
-        <PokeCalcOutput pokeData1={pokeData1} pokeData2={pokeData2} />
+        <PokeCalcOutput pokeData1={pokeData1} pokeData2={pokeData2} pokeMoves1={pokeMoves1} pokeMoves2={pokeMoves2}/>
       </main>
       {/*       <header className="App-header">
         <PokeCalcInput/>
@@ -96,11 +97,11 @@ function calculate(pokeData1, pokeData2, pokeMove) {
 function randomMoves(pokeData) {
   let randomNum;
   const tempArr = [];
-  const moveData = {};
+  const moveData = [];
 
   if (Object.keys(pokeData).length === 0) {
     console.log("data not gotten");
-    return;
+    return null;
   }
 
   while (tempArr.length < 4) {
@@ -116,8 +117,8 @@ function randomMoves(pokeData) {
     fetch(pokeData.moves[tempArr[i]].move.url)
       .then((res) => res.json())
       .then((data) => {
-        moveData["move" + i] = data;
+        moveData[i] = data;
       });
   }
-  console.log(moveData);
+  return moveData;
 }
