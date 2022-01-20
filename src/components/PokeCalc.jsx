@@ -1,38 +1,28 @@
 import { useState, useEffect } from "react";
 
 export function PokeCalcInput(){
+
     return(  
     <>
         <input type="text" placeholder="pokemon species" />
-        <button>Confirm</button>
+        <button>Random</button>
+        <button>Confirm</button> 
     </>      
     )
 }
 
 export function PokeCalcOutput(props){
-    const[pokeData2, setpokeData2] = useState({});
-
-    useEffect(()=>{
-        fetch(`https://pokeapi.co/api/v2/pokemon/${props.pokemon2}` )
-        .then((res)=>res.json())
-        .then((data)=>{
-            setpokeData2(data);
-        })
-    },[props.pokemon2])
-
-    console.log(pokeData2);
-
 
     return(  
-    <>
-        <div>
-            <p className="pokeName">pokemon1 : {props.pokemon1}</p>
-            {/* <p>abilities: {pokeData1?.abilities?.[0]?.ability?.name}</p> */}
+    <div className="pokeCalc">
+        <div className="pokeSections">
+            <p className="pokeName">pokemon1 : {props.pokeData1?.name}</p>
+            <p>moves: {props.pokeData1?.moves?.[1]?.move?.name}</p>
         </div>
-        <div>
-            <p className="pokeName">pokemon2 : {props.pokemon2}</p>
-            <p>abilities: {pokeData2?.abilities?.[0]?.ability?.name}</p>
+        <div className="pokeSections">
+            <p className="pokeName">pokemon2 : {props.pokeData2?.name}</p>
+            <p>moves: {props.pokeData2?.moves?.[17]?.move?.name}</p>
         </div>
-    </>      
+    </div>      
     )
 }
