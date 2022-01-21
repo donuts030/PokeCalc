@@ -7,31 +7,21 @@ import Home from "./components/Home";
 //for document: pokemon 1 is attacking, pokemon 2 is defending
 
 export default function App() {
+  //const gen1Data;
   const [pokemon1, setPoke1] = useState("magikarp");
   const [pokemon2, setPoke2] = useState("pikachu");
 
   const [pokeData1, setpokeData1] = useState({});
   const [pokeData2, setpokeData2] = useState({});
 
-  // const [pokeMoves1, setMoves1] = useState({});
-  // const [pokeMoves2, setMoves2] = useState({});
+  const [loading, setLoad] = useState(false);
 
-  /* const pokeCache = caches.open("poke-cache"); */
-  /*   pokeCache.then((cache) => {
-    return cache.addAll(["./generation/1/","https://pokeapi.co/api/v2/generation/2/"]);
-  }); */
-
-  //pokeCache.put("https://pokeapi.co/api/v2/generation/1/")
-
-  /*   fetch("https://pokeapi.co/api/v2/pokemon/ditto")
-    .then((res) => {res.json(); cache.put("./generation/1/",res)})
-    .then((data) => console.log(data));
-   */
-
-  //caches.delete("poke-cache");
-
-  //console.log(pokeCache.match("./generation/1/"));
   //damage calculations: damage = (((level*2/5+2)*power*attack/defense)/50+2)
+
+/*   fetch("https://pokeapi.co/api/v2/generation/1/")
+  .then((res) => res.json())
+  .then((data) => gen1Data = data);
+   */
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon1}`)
@@ -53,6 +43,7 @@ export default function App() {
   const pokeMoves1 = randomMoves(pokeData1);
   const pokeMoves2 = randomMoves(pokeData2);
 
+
   //calculate(pokeData1, pokeData2);
 
   return (
@@ -61,7 +52,7 @@ export default function App() {
         <Link to="/">
           <h1>Home</h1>
         </Link>
-        <Link to="/pokeCalc">
+        <Link to="/pokeCalc/">
           <h1>Pokemon Calculator</h1>
         </Link>
       </nav>
@@ -69,11 +60,13 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/pokeCalc"
-            element={<PokeCalcInput setPoke1={setPoke1} setPoke2={setPoke2} />}
+            path="/pokeCalc/"
+            element={<><PokeCalcInput setPoke1={setPoke1} setPoke2={setPoke2}/> 
+            <PokeCalcOutput pokeData1={pokeData1} pokeData2={pokeData2} pokeMoves1={pokeMoves1} pokeMoves2={pokeMoves2} />
+            </>}
           />
         </Routes>
-        <PokeCalcOutput pokeData1={pokeData1} pokeData2={pokeData2} pokeMoves1={pokeMoves1} pokeMoves2={pokeMoves2}/>
+        
       </main>
       {/*       <header className="App-header">
         <PokeCalcInput/>
@@ -81,17 +74,6 @@ export default function App() {
       </header> */}
     </div>
   );
-}
-
-function calculate(pokeData1, pokeData2, pokeMove) {
-  const level = 5;
-  const damage =
-    (level * 0.4 + 2) *
-      /* pokeMove.power */ 40 *
-      (pokeData1?.stats?.[1]?.base_stat / pokeData2?.stats?.[2]?.base_stat) *
-      0.02 +
-    2;
-  //console.log(damage);
 }
 
 function randomMoves(pokeData) {
@@ -109,7 +91,7 @@ function randomMoves(pokeData) {
 
     if (tempArr.includes(randomNum) === false && randomNum >= 0) {
       tempArr.push(randomNum);
-      console.log(tempArr);
+      //console.log(tempArr);
     }
   }
 
@@ -122,3 +104,20 @@ function randomMoves(pokeData) {
   }
   return moveData;
 }
+
+
+  /* const pokeCache = caches.open("poke-cache"); */
+  /*   pokeCache.then((cache) => {
+    return cache.addAll(["./generation/1/","https://pokeapi.co/api/v2/generation/2/"]);
+  }); */
+
+  //pokeCache.put("https://pokeapi.co/api/v2/generation/1/")
+
+  /*   fetch("https://pokeapi.co/api/v2/pokemon/ditto")
+    .then((res) => {res.json(); cache.put("./generation/1/",res)})
+    .then((data) => console.log(data));
+   */
+
+  //caches.delete("poke-cache");
+
+  //console.log(pokeCache.match("./generation/1/"));
