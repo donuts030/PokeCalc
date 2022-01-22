@@ -11,7 +11,7 @@ export default function App() {
   const [pokemon1, setPoke1] = useState(null);
   const [pokeData1, setData1] = useState({moves: [], data: {}});
   const [pokemon2, setPoke2] = useState(null);
-  let pokeData2 = {};
+  const [pokeData2, setData2] = useState({moves: [], data: {}});
   let pokeMoves1 = [];
   let pokeMoves2 = [];
 
@@ -32,7 +32,7 @@ export default function App() {
             path="/pokeCalc/"
             element={
               <>
-                <PokeCalcInput setPoke1={setPoke1} setData1={setData1} setPoke2={setPoke2}/> 
+                <PokeCalcInput setPoke1={setPoke1} setData1={setData1} setPoke2={setPoke2} setData2={setData2}/> 
                 <PokeCalcOutput 
                   pokemon1={pokemon1}
                   pokeData1={pokeData1} 

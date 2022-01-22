@@ -2,29 +2,48 @@ import { useRef } from "react";
 
 export function PokeCalcInput(props) {
   const pokeRef1 = useRef("");
+  const pokeRef2 = useRef("");
 
   // Onclick handle function
   const handleSubmit = () => {
     const inputName1 = pokeRef1.current.value;
-    props.setPoke1(inputName1);
+    const inputName2 = pokeRef2.current.value;
+    if(inputName1 === "" && inputName2 === ""){
+      console.log("nothing")
+      return;
+    }
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${inputName1}`)
-      .then((res) => res.json())
-      .then((data) => {
-        props.setData1({
-          moves: randomMoves(data),
-          data: data
-        });
-      });
+    if (inputName1 !== ""){
+      props.setPoke1(inputName1);
+      getData(inputName1, props.setData1)
+    }
+
+    if (inputName2 !== ""){
+      props.setPoke2(inputName2);
+      getData(inputName2, props.setData2)
+    }
+
   }
 
   return (
     <>
-      <input type="text" placeholder="pokemon species" ref={pokeRef1} />
+      <input type="text" placeholder="pokemon species 1" ref={pokeRef1} />
+      <input type="text" placeholder="pokemon species 2" ref={pokeRef2} />
       <button>Random</button>
       <button onClick={handleSubmit}>Confirm</button>
     </>
   );
+}
+
+function getData(inputName, setData){
+  fetch(`https://pokeapi.co/api/v2/pokemon/${inputName}`)
+  .then((res) => res.json())
+  .then((data) => {
+    setData({
+      moves: randomMoves(data),
+      data: data
+    });
+  });
 }
 
 function randomMoves(pokeData) {
@@ -63,7 +82,15 @@ export function PokeCalcOutput(props) {
     );
   });
 
-  let moves2;
+  let moves2 = props.pokeData2.moves.map((moveData, index) => {
+    console.log(moveData);
+    //const damage = calculate(props.pokeData1, props.pokeData2, moveData);
+    return (
+      <p key={index}>
+        Move {index + 1} : {moveData.move.name}
+      </p>
+    );
+  });
 
   return (
     <div className="pokeCalc">
@@ -72,7 +99,7 @@ export function PokeCalcOutput(props) {
         {moves1}
       </div>
       <div className="pokeSections">
-        <p className="pokeName">pokemon2 : {props.pokeData2?.name}</p>
+        <p className="pokeName">pokemon2 : {props.pokeData2?.data?.name}</p>
         {moves2}
       </div>
     </div>
