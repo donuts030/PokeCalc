@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { Route, Routes, Link } from "react-router-dom";
 import { PokeCalcInput, PokeCalcOutput } from "./components/PokeCalc";
@@ -8,43 +8,12 @@ import Home from "./components/Home";
 
 export default function App() {
   //const gen1Data;
-  const [pokemon1, setPoke1] = useState("magikarp");
-  const [pokemon2, setPoke2] = useState("pikachu");
-
-  const [pokeData1, setpokeData1] = useState({});
-  const [pokeData2, setpokeData2] = useState({});
-
-  const [loading, setLoad] = useState(false);
-
-  //damage calculations: damage = (((level*2/5+2)*power*attack/defense)/50+2)
-
-/*   fetch("https://pokeapi.co/api/v2/generation/1/")
-  .then((res) => res.json())
-  .then((data) => gen1Data = data);
-   */
-
-  useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon1}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setpokeData1(data);
-      });
-  }, [pokemon1]);
-
-  useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon2}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setpokeData2(data);
-      });
-  }, [pokemon2]);
-
-  console.log(pokeData1);
-  const pokeMoves1 = randomMoves(pokeData1);
-  const pokeMoves2 = randomMoves(pokeData2);
-
-
-  //calculate(pokeData1, pokeData2);
+  const [pokemon1, setPoke1] = useState(null);
+  const [pokeData1, setData1] = useState({moves: [], data: {}});
+  const [pokemon2, setPoke2] = useState(null);
+  let pokeData2 = {};
+  let pokeMoves1 = [];
+  let pokeMoves2 = [];
 
   return (
     <div className="App">
@@ -61,50 +30,24 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/pokeCalc/"
-            element={<><PokeCalcInput setPoke1={setPoke1} setPoke2={setPoke2}/> 
-            <PokeCalcOutput pokeData1={pokeData1} pokeData2={pokeData2} pokeMoves1={pokeMoves1} pokeMoves2={pokeMoves2} />
-            </>}
+            element={
+              <>
+                <PokeCalcInput setPoke1={setPoke1} setData1={setData1} setPoke2={setPoke2}/> 
+                <PokeCalcOutput 
+                  pokemon1={pokemon1}
+                  pokeData1={pokeData1} 
+                  pokeData2={pokeData2} 
+                  pokeMoves1={pokeMoves1} 
+                  pokeMoves2={pokeMoves2}
+                />
+              </>
+            }
           />
         </Routes>
-        
       </main>
-      {/*       <header className="App-header">
-        <PokeCalcInput/>
-        <PokeCalcOutput pokemon1={pokemon1} pokemon2={pokemon2}/>
-      </header> */}
     </div>
   );
 }
-
-function randomMoves(pokeData) {
-  let randomNum;
-  const tempArr = [];
-  const moveData = [];
-
-  if (Object.keys(pokeData).length === 0) {
-    console.log("data not gotten");
-    return null;
-  }
-
-  while (tempArr.length < 4) {
-    randomNum = Math.floor(Math.random() * pokeData.moves.length);
-
-    if (tempArr.includes(randomNum) === false && randomNum >= 0) {
-      tempArr.push(randomNum);
-      //console.log(tempArr);
-    }
-  }
-
-  for (let i = 0; i < tempArr.length; i++) {
-    fetch(pokeData.moves[tempArr[i]].move.url)
-      .then((res) => res.json())
-      .then((data) => {
-        moveData[i] = data;
-      });
-  }
-  return moveData;
-}
-
 
   /* const pokeCache = caches.open("poke-cache"); */
   /*   pokeCache.then((cache) => {
