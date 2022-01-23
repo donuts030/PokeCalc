@@ -1,76 +1,3 @@
-import { useRef } from "react";
-
-export function PokeCalcInput(props) {
-  const pokeRef1 = useRef("");
-  const pokeRef2 = useRef("");
-
-  // Onclick handle function
-  const handleSubmit = () => {
-    const inputName1 = pokeRef1.current.value;
-    const inputName2 = pokeRef2.current.value;
-    if(inputName1 === "" && inputName2 === ""){
-      console.log("nothing")
-      return;
-    }
-
-    if (inputName1 !== ""){
-      props.setPoke1(inputName1);
-      getData(inputName1, props.setData1)
-    }
-
-    if (inputName2 !== ""){
-      props.setPoke2(inputName2);
-      getData(inputName2, props.setData2)
-    }
-
-  }
-
-  return (
-    <>
-      <input type="text" placeholder="pokemon species 1" ref={pokeRef1} />
-      <input type="text" placeholder="pokemon species 2" ref={pokeRef2} />
-      <button>Random</button>
-      <button onClick={handleSubmit}>Confirm</button>
-    </>
-  );
-}
-
-function getData(inputName, setData){
-  fetch(`https://pokeapi.co/api/v2/pokemon/${inputName}`)
-  .then((res) => res.json())
-  .then((data) => {
-    setData({
-      moves: randomMoves(data),
-      data: data
-    });
-  });
-}
-
-function randomMoves(pokeData) {
-    let randomNum;
-    const tempArr = [];
-    const moveData = [];
-  
-    if (Object.keys(pokeData).length === 0 ) {
-      console.log("data not gotten at moves");
-      return [];
-    }
-  
-    while (tempArr.length < 4) {
-      randomNum = Math.floor(Math.random() * pokeData?.moves?.length);
-  
-      if (tempArr.includes(randomNum) === false && randomNum >= 0) {
-        tempArr.push(randomNum);
-      }
-    }
-  
-    for (let i = 0; i < tempArr.length; i++) {
-      moveData[i] = pokeData.moves[tempArr[i]]
-    }
-    return moveData;
-  }
-  
-
 export function PokeCalcOutput(props) {
   let moves1 = props.pokeData1.moves.map((moveData, index) => {
     console.log(moveData);
@@ -95,7 +22,7 @@ export function PokeCalcOutput(props) {
   return (
     <div className="pokeCalc">
       <div className="pokeSections">
-        <p className="pokeName">pokemon1 : {props.pokemon1}</p>
+        <p className="pokeName">pokemon1 : {props.pokeData1?.data?.name}</p>
         {moves1}
       </div>
       <div className="pokeSections">
@@ -119,7 +46,6 @@ function calculate(pokeData_A, pokeData_D, pokeMove) {
   if (pokeData_D.types.find((type) => (type = pokeMove.type.name))) {
     stab = 1.5;
   }
-
   fetch(pokeMove.type.url)
     .then((res) => res.json())
     .then((data) => (moveType = data));

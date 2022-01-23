@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { Route, Routes, Link } from "react-router-dom";
-import { PokeCalcInput, PokeCalcOutput } from "./components/PokeCalc";
+import { PokeCalcInput } from "./components/PokeCalcInput";
+import { PokeCalcOutput } from "./components/PokeCalcOutput"
 import Home from "./components/Home";
 
 //for document: pokemon 1 is attacking, pokemon 2 is defending
