@@ -25,10 +25,15 @@
 
 .pokeCalc{
   display: flex;
+  flex-direction: column;
+}
+
+.movesDisplay{
+  display: flex;
   flex-direction: row;
 }
 
-.pokeSections{
+.movesSections{
   display: flex;
   flex-direction: column;
 }

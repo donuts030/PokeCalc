@@ -13,6 +13,10 @@ export default function App() {
   const [pokeData1, setData1] = useState({moves: [], data: {}});
   const [pokemon2, setPoke2] = useState(null);
   const [pokeData2, setData2] = useState({moves: [], data: {}});
+  const [specMovesData1, setMovesData1] = useState([]);
+  const [specMovesData2, setMovesData2] = useState([]);
+  const [damageData1, setDamage1] = useState([]);
+  const [damageData2, setDamage2] = useState([]);
   let pokeMoves1 = [];
   let pokeMoves2 = [];
 
@@ -40,6 +44,12 @@ export default function App() {
                   pokeData2={pokeData2} 
                   pokeMoves1={pokeMoves1} 
                   pokeMoves2={pokeMoves2}
+                  setMovesData1={setMovesData1}
+                  setMovesData2={setMovesData2}
+                  setDamage1={setDamage1}
+                  setDamage2={setDamage2}
+                  damageData1={damageData1}
+                  damageData2={damageData2}
                 />
               </>
             }

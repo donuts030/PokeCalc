@@ -51,11 +51,6 @@ function randomMoves(pokeData) {
     const tempArr = [];
     const moveData = [];
   
-    if (Object.keys(pokeData).length === 0 ) {
-      console.log("data not gotten at moves");
-      return [];
-    }
-  
     while (tempArr.length < 4) {
       randomNum = Math.floor(Math.random() * pokeData?.moves?.length);
   
