@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { Route, Routes, Link } from "react-router-dom";
 import { PokeCalcInput } from "./components/PokeCalcInput";
-import { PokeCalcOutput } from "./components/PokeCalcOutput"
+import { PokeCalcOutput } from "./components/PokeCalcOutput";
 import Home from "./components/Home";
 
 //for document: pokemon 1 is attacking, pokemon 2 is defending

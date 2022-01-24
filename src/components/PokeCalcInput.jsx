@@ -26,12 +26,15 @@ export function PokeCalcInput(props) {
   }
 
   return (
-    <>
-      <input type="text" placeholder="pokemon species 1" ref={pokeRef1} />
-      <input type="text" placeholder="pokemon species 2" ref={pokeRef2} />
-      <button>Random</button>
-      <button onClick={handleSubmit}>Confirm</button>
-    </>
+    <div className="pokeCalc">
+      <h3>Input Pokemon Name:</h3>
+      <div className="pokeSearch">
+        <input type="text" placeholder="pokemon species 1" ref={pokeRef1} />
+        <input type="text" placeholder="pokemon species 2" ref={pokeRef2} />
+        <button>Random</button>
+        <button onClick={handleSubmit}>Confirm</button>
+      </div>
+    </div>
   );
 }
 

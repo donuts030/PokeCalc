@@ -26,6 +26,12 @@
 .pokeCalc{
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.pokeSearch{
+  display: flex;
+  flex-direction: row;
 }
 
 .movesDisplay{
@@ -36,6 +42,10 @@
 .movesSections{
   display: flex;
   flex-direction: column;
+}
+
+.damage{
+  white-space: pre-line;
 }
 
 nav {
