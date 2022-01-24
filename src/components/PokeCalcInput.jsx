@@ -6,8 +6,8 @@ export function PokeCalcInput(props) {
 
   // Onclick handle function
   const handleSubmit = () => {
-    const inputName1 = pokeRef1.current.value;
-    const inputName2 = pokeRef2.current.value;
+    const inputName1 = pokeRef1.current.value.toLowerCase();
+    const inputName2 = pokeRef2.current.value.toLowerCase();
     if(inputName1 === "" && inputName2 === ""){
       console.log("nothing")
       return;
