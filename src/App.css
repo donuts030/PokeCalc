@@ -37,11 +37,21 @@
 .movesDisplay{
   display: flex;
   flex-direction: row;
+  
 }
 
 .movesSections{
   display: flex;
   flex-direction: column;
+  min-width: 300px;
+  align-items: center;
+}
+
+.moveInfo{
+  border: 1px solid #282c34;
+  min-width: 300px;
+  max-width: 300px;
+  min-height: 150px;
 }
 
 .damage{

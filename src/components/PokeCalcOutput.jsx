@@ -7,23 +7,23 @@ export function PokeCalcOutput(props) {
 
   let moves1 = props.pokeData1.moves.map((moveData, moveIndex) => {
     return (
-      <>
+      <div className="moveInfo">
         <p key={moveIndex}>
           Move {moveIndex + 1} : {moveData.move.name}
         </p>
         {damageDisplay(props.damageData1, moveIndex)}
-      </>
+      </div>
     );
   });
 
   let moves2 = props.pokeData2.moves.map((moveData, moveIndex) => {
     return (
-      <>
+      <div className="moveInfo">
         <p key={moveIndex}>
           Move {moveIndex + 1} : {moveData.move.name}
         </p>
         {damageDisplay(props.damageData2, moveIndex)}
-      </>
+      </div>
     );
   });
 
@@ -133,7 +133,7 @@ function calculate(pokeData_A, pokeData_D, pokeMove, level) {
 
   switch (pokeMove.movedata.damage_class.name) {
     case "status":
-      damage = "This is a status move.\n Effect:" +pokeMove.movedata.flavor_text_entries[0].flavor_text;
+      damage = "This is a status move.\n Effect: " +pokeMove.movedata.effect_entries[0].short_effect;
       break;
     case "special":
       damage =
