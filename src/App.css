@@ -33,6 +33,10 @@
   flex-direction: row;
   white-space: pre-line
 }
+.lvlInput{
+  display: flex;
+  flex-direction: row;
+}
 
 .movesDisplay{
   display: flex;
@@ -45,6 +49,9 @@
   flex-direction: column;
   min-width: 300px;
   align-items: center;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid black ;
 }
 
 .moveInfo{

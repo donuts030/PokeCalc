@@ -37,8 +37,8 @@ export function PokeCalcOutput(props) {
     let damageData1 = [];
     let damageData2 = [];
     for(let i = 0; i < specMoveData1.length; i++){
-      damageData1.push(calculate(props.pokeData1.data, props.pokeData2.data, specMoveData1[i], level1));
-      damageData2.push(calculate(props.pokeData2.data, props.pokeData1.data, specMoveData2[i], level2));
+      damageData1.push(calculate(props.pokeData1.data, props.pokeData2.data, specMoveData1[i], level1, level2));
+      damageData2.push(calculate(props.pokeData2.data, props.pokeData1.data, specMoveData2[i], level2, level1));
     }
     props.setDamage1(damageData1);
     props.setDamage2(damageData2);
@@ -60,25 +60,25 @@ export function PokeCalcOutput(props) {
 
   return (
     <div className="pokeCalc">
-      <p>Choose Pokemon Level: (Default Level: 5)</p>
       <div className="movesDisplay">
         <div className="movesSections">
-          <LevelInput index={1} setLvl={setLvl1}/>
           <div className="pokeInfo">
             <img src={props.pokeData1?.data?.sprites?.front_default} />
             <div className="infoText">
               <p className="pokeName">pokemon1 : {props.pokeData1?.data?.name}</p>
+              <LevelInput index={1} setLvl={setLvl1}/>
               <p className="pokeLvl">Level : {level1}</p>
             </div>
           </div>
           {moves1}
         </div>
         <div className="movesSections">
-          <LevelInput index={1} setLvl={setLvl2}/>
+          
           <div className="pokeInfo">
             <img className="infoImg" src={props.pokeData2?.data?.sprites?.front_default} />
             <div className="infoText">
               <p className="pokeName">pokemon2 : {props.pokeData2?.data?.name}</p>
+              <LevelInput index={1} setLvl={setLvl2}/>
               <p className="pokeLvl">Level : {level2}</p>
             </div>
           </div>
@@ -121,17 +121,24 @@ function damageDisplay(damageData, index){
       <p></p>
     );
   }
-  else{
+  else if(typeof damageData[index] === "string"){
     return(
       <p key={index+4} className="damage">
         Damage: {damageData[index]}
       </p>
     )
   }
+  else{
+    return(
+      <p key={index+4} className="damage">
+        Max Damage: {damageData[index]}
+      </p>
+    )
+  }
 }
 
 
-function calculate(pokeData_A, pokeData_D, pokeMove, level) {
+function calculate(pokeData_A, pokeData_D, pokeMove, level_A, level_D) {
   let damage;
   const maxRandom = 1;
   const minRandom = 0.85;
@@ -148,26 +155,32 @@ function calculate(pokeData_A, pokeData_D, pokeMove, level) {
       damage = "This is a status move.\n Effect: " +pokeMove.movedata.effect_entries[0].short_effect;
       break;
     case "special":
-      damage =
-        ((level * 0.4 + 2) *
+      const specialAtk_A = (pokeData_A.stats[3].base_stat * 2)* level_A * 0.01 + 5;
+      const specialDef_D = (pokeData_D.stats[4].base_stat * 2)* level_D * 0.01 + 5;
+      damage = Math.floor(
+        ((level_A * 0.4 + 2) *
           pokeMove.movedata.power *
-          (pokeData_A.stats[3].base_stat / pokeData_D.stats[4].base_stat) *
+          (specialAtk_A / specialDef_D) *
           0.02 +
           2) *
         random *
         stab *
-        typeMult;
+        typeMult
+        );
       break;
     case "physical":
-      damage =
-        ((level * 0.4 + 2) *
+      const phyAtk_A = (pokeData_A.stats[1].base_stat * 2) * level_A * 0.01 + 5;
+      const phyDef_D = (pokeData_D.stats[2].base_stat * 2) * level_D * 0.01 + 5;
+      damage = Math.floor(
+        ((level_A * 0.4 + 2) *
           pokeMove.movedata.power *
-          (pokeData_A.stats[1].base_stat / pokeData_D.stats[2].base_stat) *
+          (phyAtk_A / phyDef_D) *
           0.02 +
           2) *
         random *
         stab *
-        typeMult;
+        typeMult
+        );
       break;
   }
 

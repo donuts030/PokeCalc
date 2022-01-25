@@ -8,6 +8,7 @@ export function LevelInput(props){
     }
     return(
         <div className="lvlInput" id={props.index} >
+            <p>Input Level:</p>
             <input  type="number" min="0" max="100" ref={lvlRef}></input>
             <button onClick={clickHandler}>Confirm</button>
         </div>
