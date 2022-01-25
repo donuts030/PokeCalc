@@ -1,6 +1,6 @@
 
 
-function cachePokemonByGen(){
+/* function cachePokemonByGen(){
       const pokeCache = caches.open("poke-cache").then((cache) => {
     return cache.addAll(["https://pokeapi.co/api/v2/generation/1/","https://pokeapi.co/api/v2/generation/2/"]);
   });
@@ -10,7 +10,7 @@ function cachePokemonByGen(){
   //pokeCache.delete("https://pokeapi.co/api/v2/generation/1/");
   caches.delete("poke-cache");
 }
-
+ */
 
 
 export const Gen1 =[

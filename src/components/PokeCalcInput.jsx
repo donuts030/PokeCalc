@@ -1,26 +1,31 @@
 import { useRef } from "react";
+import { Gen1 } from "./pokedex";
 
 export function PokeCalcInput(props) {
   const pokeRef1 = useRef("");
   const pokeRef2 = useRef("");
+
+  const handleRandom = () => {
+    console.log("random");
+  }
 
   // Onclick handle function
   const handleSubmit = () => {
     const inputName1 = pokeRef1.current.value.toLowerCase();
     const inputName2 = pokeRef2.current.value.toLowerCase();
     if(inputName1 === "" && inputName2 === ""){
-      console.log("nothing")
+      console.log("nothing");
       return;
     }
 
     if (inputName1 !== ""){
       props.setPoke1(inputName1);
-      getData(inputName1, props.setData1)
+      getData(inputName1, props.setData1);
     }
 
     if (inputName2 !== ""){
       props.setPoke2(inputName2);
-      getData(inputName2, props.setData2)
+      getData(inputName2, props.setData2);
     }
 
   }
@@ -31,7 +36,7 @@ export function PokeCalcInput(props) {
       <div className="pokeSearch">
         <input type="text" placeholder="pokemon species 1" ref={pokeRef1} />
         <input type="text" placeholder="pokemon species 2" ref={pokeRef2} />
-        <button>Random</button>
+        <button onClick={handleRandom}>Random</button>
         <button onClick={handleSubmit}>Confirm</button>
       </div>
     </div>
