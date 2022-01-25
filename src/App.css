@@ -28,6 +28,11 @@
   flex-direction: row;
 }
 
+.pokeInfo{
+  display: flex;
+  flex-direction: row;
+}
+
 .movesDisplay{
   display: flex;
   flex-direction: row;

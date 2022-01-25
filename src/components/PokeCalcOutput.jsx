@@ -64,12 +64,18 @@ export function PokeCalcOutput(props) {
       <div className="movesDisplay">
         <div className="movesSections">
           <LevelInput index={1} setLvl={setLvl1}/>
-          <p className="pokeName">pokemon1 : {props.pokeData1?.data?.name}</p>
+          <div className="pokeInfo">
+            <img src={props.pokeData1?.data?.sprites?.front_default} />
+            <p className="pokeName">pokemon1 : {props.pokeData1?.data?.name}</p>
+          </div>
           {moves1}
         </div>
         <div className="movesSections">
           <LevelInput index={1} setLvl={setLvl2}/>
-          <p className="pokeName">pokemon2 : {props.pokeData2?.data?.name}</p>
+          <div className="pokeInfo">
+            <img src={props.pokeData2?.data?.sprites?.front_default} />
+            <p className="pokeName">pokemon2 : {props.pokeData2?.data?.name}</p>
+          </div>
           {moves2}
         </div>
       </div>
