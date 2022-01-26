@@ -6,7 +6,10 @@ export function PokeCalcInput(props) {
   const pokeRef2 = useRef("");
 
   const handleRandom = () => {
-    console.log("random");
+    const rdmNum1 = Math.floor(Math.random() * Gen1.length);
+    const rdmNum2 = Math.floor(Math.random() * Gen1.length);
+    pokeRef1.current.value = Gen1[rdmNum1];
+    pokeRef2.current.value = Gen1[rdmNum2];
   }
 
   // Onclick handle function

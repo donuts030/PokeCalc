@@ -13,11 +13,19 @@
   color: white;
 }
 
+img{
+  min-height: 75px;
+  width: 100%;
+  object-fit: cover;
+  align-self: center;
+}
+
 .App-link {
   color: #61dafb;
 }
 
 .pokeCalc{
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,12 +35,23 @@
   display: flex;
   flex-direction: row;
 }
-
 .pokeInfo{
   display: flex;
   flex-direction: row;
-  white-space: pre-line
+  min-width: 300px;
+  white-space: pre-line;
+  padding: 15px;
+  align-items: center;
 }
+
+.pokeImg{
+  align-self: flex-start;
+  min-width: 50px;
+  min-height: auto;
+  border: 2px solid rgb(224, 28, 28);
+  border-radius: 15px;
+}
+
 .lvlInput{
   display: flex;
   flex-direction: row;
@@ -84,14 +103,32 @@ p {
 }
 
 input {
-  font-size: calc(10px + 2vmin);
+  font-size: calc(5px + 2vmin);
+  min-width: 0;
+  min-height: 0;
+}
+
+.statInput{
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 150px;
+  max-width: 200px;
+  min-height: 100px;
+}
+
+.stats{
+  display: block;
+  min-width: 0;
+  min-height: 0;
+  max-width: 50px;
 }
 
 button {
   border-radius: 5px;
   border-style: none;
   margin: 2px;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(5px + 2vmin);
   background-color: rgb(214, 58, 58);
   color:white
 }

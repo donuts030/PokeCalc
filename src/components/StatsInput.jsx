@@ -4,18 +4,20 @@ export default function StatsInput(){
     const statNames = ["hp", "atk", "def", "spAtk", "spDef", "spd"];
     const statInput = statNames.map((statType, index)=>{
         return(
-            <div className="stats">
+            <div className={statType} key={index + 40}>
                 <p>{statType} : </p>
-                <input type="number" id={statType}/>
+                <input type="number" id={statType} className="stats"/>
             </div>
         )
     });
     return(
         <div>
-            <h3>Input Pokemon Stats</h3>
+            <p>Input Pokemon Stats</p>
             <div className="statInput">
                 {statInput}
+                <button>Confirm</button>
             </div>
+            
         </div>
     )
 }

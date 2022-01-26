@@ -64,26 +64,31 @@ export function PokeCalcOutput(props) {
       <div className="movesDisplay">
         <div className="movesSections">
           <div className="pokeInfo">
-            <img src={props.pokeData1?.data?.sprites?.front_default} />
+            <div className="pokeImg">
+              <img src={props.pokeData1?.data?.sprites?.front_default} />
+            </div>
             <div className="infoText">
               <p className="pokeName">pokemon1 : {props.pokeData1?.data?.name}</p>
               <LevelInput index={1} setLvl={setLvl1}/>
               <p className="pokeLvl">Level : {level1}</p>
-              {/* <StatsInput/> */}
+              <StatsInput/>
             </div>
           </div>
           {moves1}
         </div>
         <div className="movesSections">
           <div className="pokeInfo">
-            <img className="infoImg" src={props.pokeData2?.data?.sprites?.front_default} />
+            <div className="pokeImg">
+              <img className="infoImg" src={props.pokeData2?.data?.sprites?.front_default} />
+            </div>
             <div className="infoText">
               <p className="pokeName">pokemon2 : {props.pokeData2?.data?.name}</p>
               <LevelInput index={1} setLvl={setLvl2}/>
               <p className="pokeLvl">Level : {level2}</p>
-              {/* <StatsInput/> */}
+              <StatsInput/>
             </div>
           </div>
+          
           {moves2}
         </div>
       </div>
@@ -119,11 +124,11 @@ async function getMoveType(movedata){
 
 function damageDisplay(damageData, index){
   if(damageData.length <= 0){
-    return(
-      <p></p>
-    );
+    return null;
   }
-  else if(typeof damageData[index].maxDmg === "string"){
+
+
+  if(typeof damageData[index].maxDmg === "string"){
     return(
       <div key={index+4} className="damageInfo">
         <p key={index+4} className="damage">
