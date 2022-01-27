@@ -50,6 +50,7 @@ img{
   min-height: auto;
   border: 2px solid rgb(224, 28, 28);
   border-radius: 15px;
+  margin: 15px;
 }
 
 .lvlInput{
@@ -92,6 +93,9 @@ img{
 nav {
   display: flex;
   flex-direction: row;
+  margin: 20px;
+  background-color: rgb(59, 76, 202);
+  color: rgb(179, 161, 37);
 }
 
 h1 {

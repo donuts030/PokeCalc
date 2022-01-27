@@ -6,10 +6,11 @@ export function PokeCalcOutput(props) {
   const [level1, setLvl1] = useState(5);
   const [level2, setLvl2] = useState(5);
 
+
   let moves1 = props.pokeData1.moves.map((moveData, moveIndex) => {
     return (
-      <div className="moveInfo">
-        <p key={moveIndex + 10}>
+      <div className="moveInfo" key={moveIndex + 10}>
+        <p >
           Move {moveIndex + 1} : {moveData.move.name}
         </p>
         {damageDisplay(props.damageData1, moveIndex)}
@@ -19,8 +20,8 @@ export function PokeCalcOutput(props) {
 
   let moves2 = props.pokeData2.moves.map((moveData, moveIndex) => {
     return (
-      <div className="moveInfo">
-        <p key={moveIndex + 20}>
+      <div className="moveInfo" key={moveIndex + 20}>
+        <p >
           Move {moveIndex + 1} : {moveData.move.name}
         </p>
         {damageDisplay(props.damageData2, moveIndex)}
@@ -71,7 +72,7 @@ export function PokeCalcOutput(props) {
               <p className="pokeName">pokemon1 : {props.pokeData1?.data?.name}</p>
               <LevelInput index={1} setLvl={setLvl1}/>
               <p className="pokeLvl">Level : {level1}</p>
-              <StatsInput/>
+              <StatsInput pokeBaseStats={props.stats2} setStats={props.setStat1}/>
             </div>
           </div>
           {moves1}
@@ -85,10 +86,9 @@ export function PokeCalcOutput(props) {
               <p className="pokeName">pokemon2 : {props.pokeData2?.data?.name}</p>
               <LevelInput index={1} setLvl={setLvl2}/>
               <p className="pokeLvl">Level : {level2}</p>
-              <StatsInput/>
+              <StatsInput pokeBaseStats={props.stats2} setStats={props.setStat2}/>
             </div>
           </div>
-          
           {moves2}
         </div>
       </div>
@@ -106,9 +106,6 @@ async function getMoveData(moves){
     movesData.push({movedata: data});
     movesData[i]["movetype"] = await getMoveType(data);
   }
-/*   for(let i = 0; i < movesData.length; i++){
-    movesData[i].movetype = getMoveType(movesData[i].movedata);
-  } */
   return movesData;
 }
 
@@ -130,11 +127,11 @@ function damageDisplay(damageData, index){
 
   if(typeof damageData[index].maxDmg === "string"){
     return(
-      <div key={index+4} className="damageInfo">
-        <p key={index+4} className="damage">
+      <div key={index+40} className="damageInfo">
+        <p className="damage">
           Damage: {damageData[index].maxDmg}
         </p>
-        <p key={index+4} className="damage">
+        <p className="damage">
           Effect: {damageData[index].effect}
         </p>
       </div>
@@ -142,7 +139,7 @@ function damageDisplay(damageData, index){
   }
   else{
     return(
-      <div key={index+4} className="damageInfo">
+      <div key={index+50} className="damageInfo">
         <p className="damage">
           Max Damage: {damageData[index].maxDmg} 
         </p>
