@@ -39,8 +39,8 @@ export function PokeCalcOutput(props) {
     let damageData1 = [];
     let damageData2 = [];
     for(let i = 0; i < specMoveData1.length; i++){
-      damageData1.push(calculate(props.pokeData1.data, props.pokeData2.data, specMoveData1[i], level1, level2));
-      damageData2.push(calculate(props.pokeData2.data, props.pokeData1.data, specMoveData2[i], level2, level1));
+      damageData1.push(calculate(props.pokeData1.data, props.pokeData2.data, specMoveData1[i], level1, level2, props.stats1, props.stats2));
+      damageData2.push(calculate(props.pokeData2.data, props.pokeData1.data, specMoveData2[i], level2, level1, props.stats2, props.stats1));
     }
     props.setDamage1(damageData1);
     props.setDamage2(damageData2);
@@ -157,7 +157,7 @@ function damageDisplay(damageData, index){
 }
 
 
-function calculate(pokeData_A, pokeData_D, pokeMove, level_A, level_D) {
+function calculate(pokeData_A, pokeData_D, pokeMove, level_A, level_D, stats_A, stats_D) {
   let dmgMax;
   let dmgMin;
   const maxRandom = 1;
@@ -174,8 +174,14 @@ function calculate(pokeData_A, pokeData_D, pokeMove, level_A, level_D) {
       dmgMax = "This is a status move."
       break;
     case "special":
-      const specialAtk_A = (pokeData_A.stats[3].base_stat * 2)* level_A * 0.01 + 5;
-      const specialDef_D = (pokeData_D.stats[4].base_stat * 2)* level_D * 0.01 + 5;
+      //if value = basestat then use level directly to calculate
+      const specialAtk_A = (pokeData_A.stats[3].base_stat === stats_A.spAtk)?
+        ((pokeData_A.stats[3].base_stat * 2)* level_A * 0.01 + 5):
+        stats_A.spAtk;
+      const specialDef_D = (pokeData_D.stats[4].base_stat === stats_D.spDef)?
+        ((pokeData_D.stats[4].base_stat * 2)* level_D * 0.01 + 5):
+        stats_D.spDef;
+
       dmgMax = Math.floor(
         ((level_A * 0.4 + 2) *
           pokeMove.movedata.power *
@@ -199,8 +205,13 @@ function calculate(pokeData_A, pokeData_D, pokeMove, level_A, level_D) {
         );
       break;
     case "physical":
-      const phyAtk_A = (pokeData_A.stats[1].base_stat * 2) * level_A * 0.01 + 5;
-      const phyDef_D = (pokeData_D.stats[2].base_stat * 2) * level_D * 0.01 + 5;
+      const phyAtk_A = (pokeData_A.stats[1].base_stat === stats_A.atk)?
+        ((pokeData_A.stats[1].base_stat * 2) * level_A * 0.01 + 5):
+        stats_A.atk;
+      const phyDef_D = (pokeData_D.stats[2].base_stat === stats_D.def)?
+        ((pokeData_D.stats[2].base_stat * 2) * level_D * 0.01 + 5):
+        stats_D.def;
+
       dmgMax = Math.floor(
         ((level_A * 0.4 + 2) *
           pokeMove.movedata.power *

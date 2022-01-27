@@ -15,7 +15,7 @@ export default function StatsInput(props){
         return null;
     }
     
-    const confirmStat = (confirm) => {
+    const confirmStat = (confirm) => { 
         console.log(props.pokeBaseStats.hp)
         stats.hp = (hpRef.current.value === "")?props.pokeBaseStats.hp:hpRef.current.value;
         stats.atk = (atkRef.current.value === "")?props.pokeBaseStats.atk:atkRef.current.value;
@@ -29,6 +29,19 @@ export default function StatsInput(props){
 
     const unConfirmStat = () =>{
         setConfirm(false);
+    }
+
+    const buttons = () => {
+        if(confirmed){
+            return(
+                <button onClick={unConfirmStat}>Change Stats</button>  
+            );
+        }
+        else{
+            return(
+                <button onClick={()=>confirmStat(true)}>Confirm</button>
+            );
+        }
     }
 
     function StatDisplay(props){
@@ -70,8 +83,7 @@ export default function StatsInput(props){
             <p>Input Pokemon Stats</p>
             <div className="statInput">
                 <StatDisplay currStats={stats} statRefs={statRefs}/>
-                <button onClick={()=>confirmStat(true)}>Confirm</button>
-                <button onClick={unConfirmStat}>Change Stats</button>
+                {buttons()}
             </div>
             
         </div>
