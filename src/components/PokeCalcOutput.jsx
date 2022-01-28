@@ -72,7 +72,7 @@ export function PokeCalcOutput(props) {
               <p className="pokeName">pokemon1 : {props.pokeData1?.data?.name}</p>
               <LevelInput index={1} setLvl={setLvl1}/>
               <p className="pokeLvl">Level : {level1}</p>
-              <StatsInput pokeBaseStats={props.stats2} setStats={props.setStat1}/>
+              <StatsInput pokeBaseStats={props.stats1} setStats={props.setStat1}/>
             </div>
           </div>
           {moves1}
